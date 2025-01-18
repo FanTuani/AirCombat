@@ -1,0 +1,4 @@
+name: AirCombat
+version: '${project.version}'
+main: lqw.aircombat.AirCombat
+api-version: '1.16'
