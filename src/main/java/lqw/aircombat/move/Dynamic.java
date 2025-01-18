@@ -1,4 +1,4 @@
-package lqw.aircombat;
+package lqw.aircombat.move;
 
 import org.bukkit.Particle;
 import org.bukkit.entity.Player;

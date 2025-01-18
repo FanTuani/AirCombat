@@ -1,5 +1,6 @@
-package lqw.aircombat;
+package lqw.aircombat.props;
 
+import lqw.aircombat.AirCombat;
 import org.bukkit.*;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;

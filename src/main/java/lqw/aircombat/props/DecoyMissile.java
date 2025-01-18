@@ -1,5 +1,6 @@
-package lqw.aircombat;
+package lqw.aircombat.props;
 
+import lqw.aircombat.AirCombat;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;

@@ -1,5 +1,8 @@
 package lqw.aircombat;
 
+import lqw.aircombat.props.DecoyMissile;
+import lqw.aircombat.move.Dynamic;
+import lqw.aircombat.props.Missile;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
