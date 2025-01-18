@@ -38,7 +38,7 @@
               <goal>shade</goal>
             </goals>
               <configuration>
-                  <outputDirectory>D:\MCServers\Paper1.16.5\plugins</outputDirectory>
+                  <outputDirectory>C:\Users\76619\Saved Games\MC\sever\1.16.5 Paper\plugins</outputDirectory>
               </configuration>
           </execution>
         </executions>

@@ -10,6 +10,7 @@ public final class AirCombat extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
+        HUDRadar.start(this);
         getServer().getPluginManager().registerEvents(new Dynamic(), this);
         getServer().getPluginManager().registerEvents(new Missile(), this);
         getServer().getPluginManager().registerEvents(new DecoyMissile(), this);
