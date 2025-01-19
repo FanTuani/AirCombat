@@ -13,9 +13,9 @@ public class Dynamic implements Listener {
         if (!event.getPlayer().isGliding()) return;
         Player player = event.getPlayer();
         playEffects(player);
-        if (player.getVelocity().length() < 1.3) {
+        if (player.getVelocity().length() < 1.4) {
             Vector force = player.getLocation().getDirection().multiply(0.025);
-            force.setY(force.getY() * 0.5);
+            force.setY(force.getY() * 0.4);
             player.setVelocity(player.getVelocity().add(force));
         }
     }

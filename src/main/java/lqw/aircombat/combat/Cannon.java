@@ -5,14 +5,18 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Arrow;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.scheduler.BukkitRunnable;
+
+import java.util.Objects;
 
 public class Cannon implements Listener {
     @EventHandler
@@ -34,6 +38,7 @@ public class Cannon implements Listener {
                 Location startLoc = player.getEyeLocation();
                 startLoc.setY(startLoc.getY() - 0.3);
                 Arrow arrow = player.getWorld().spawn(startLoc, Arrow.class);
+                arrow.setCustomName("cannon " + player.getName());
                 arrow.setVelocity(player.getLocation().getDirection().multiply(5));
                 arrow.setGravity(false);
                 arrow.setShooter(player);
@@ -45,5 +50,20 @@ public class Cannon implements Listener {
                 }.runTaskLater(AirCombat.instance, 60);
             }
         }.runTaskTimer(AirCombat.instance, 0, 1);
+    }
+
+    @EventHandler
+    public void onPlayerDamagedByCannon(EntityDamageByEntityEvent event) {
+        if (!Objects.requireNonNull(event.getDamager().getCustomName()).startsWith("cannon")) return;
+        if (!(event.getEntity() instanceof LivingEntity)) return;
+        LivingEntity entity = (LivingEntity) event.getEntity();
+        event.setCancelled(true);
+        entity.damage(1);
+        entity.setNoDamageTicks(0);
+        String str = event.getDamager().getCustomName();
+        String shooterName = str.substring(str.lastIndexOf(" ") + 1);
+        Player shooter = AirCombat.instance.getServer().getPlayer(shooterName);
+        if (shooter == null) return;
+        shooter.playSound(shooter.getLocation(), Sound.ENTITY_ARROW_HIT_PLAYER, 1, 0.5f);
     }
 }
