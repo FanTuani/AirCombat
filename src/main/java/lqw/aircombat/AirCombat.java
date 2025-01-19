@@ -1,8 +1,9 @@
 package lqw.aircombat;
 
+import lqw.aircombat.combat.Bombing;
 import lqw.aircombat.combat.Cannon;
-import lqw.aircombat.props.DecoyMissile;
 import lqw.aircombat.move.Dynamic;
+import lqw.aircombat.props.DecoyMissile;
 import lqw.aircombat.props.Missile;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -19,6 +20,7 @@ public final class AirCombat extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new Missile(), this);
         getServer().getPluginManager().registerEvents(new DecoyMissile(), this);
         getServer().getPluginManager().registerEvents(new Cannon(), this);
+        getServer().getPluginManager().registerEvents(new Bombing(), this);
         for (Player player : getServer().getOnlinePlayers()) {
             player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1f, 1f);
         }

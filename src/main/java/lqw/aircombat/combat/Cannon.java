@@ -16,8 +16,6 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.Objects;
-
 public class Cannon implements Listener {
     @EventHandler
     public void whenLaunchCannon(PlayerInteractEvent event) {
@@ -54,7 +52,9 @@ public class Cannon implements Listener {
 
     @EventHandler
     public void onPlayerDamagedByCannon(EntityDamageByEntityEvent event) {
-        if (!Objects.requireNonNull(event.getDamager().getCustomName()).startsWith("cannon")) return;
+        if (event.getDamager().getCustomName() == null
+                || !event.getDamager().getCustomName().startsWith("cannon"))
+            return;
         if (!(event.getEntity() instanceof LivingEntity)) return;
         LivingEntity entity = (LivingEntity) event.getEntity();
         event.setCancelled(true);
