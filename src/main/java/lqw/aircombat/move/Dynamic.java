@@ -17,23 +17,26 @@ public class Dynamic implements Listener {
     @EventHandler
     public void onPlayGlide(PlayerMoveEvent event) {
         Player player = event.getPlayer();
+        player.setLevel(0);
+        player.setExp(0);
         if (!event.getPlayer().isGliding()) {
-            player.setLevel(Math.min(500, player.getLevel() + 1));
+//            player.setLevel(Math.min(500, player.getLevel() + 1));
             return;
         }
+//        if (player.getLevel() == 0) return;
         playEffects(player);
-        if (player.getVelocity().length() < 1.4 && player.getLevel() > 0) {
-            player.setLevel(Math.max(0, player.getLevel() - 1));
-            Vector force = player.getLocation().getDirection().multiply(0.025);
-            force.setY(force.getY() * 0.4);
+        player.setLevel((int) (player.getVelocity().length() * 1000));
+
+//        player.setLevel(Math.max(0, player.getLevel() - 1));
+        Vector velocity = player.getVelocity();
+        double maxSpeed = 1.7;
+        if (velocity.length() < maxSpeed) {
+            double rate = 0.05;
+            rate = rate + -rate * (velocity.length() / maxSpeed);
+            player.setExp((float) Math.min((rate * 1.5 / 0.05), 1f));
+            Vector force = player.getLocation().getDirection().multiply(rate);
+            force.setY(force.getY() * 0.2);
             player.setVelocity(player.getVelocity().add(force));
-        }
-        if (player.getEquipment().getItemInOffHand().getType() == Material.FIREWORK_ROCKET) {
-            if (player.getVelocity().length() < 2) {
-                Vector force = player.getLocation().getDirection().multiply(0.03);
-                force.setY(force.getY() * 0.4);
-                player.setVelocity(player.getVelocity().add(force));
-            }
         }
     }
 
@@ -65,9 +68,9 @@ public class Dynamic implements Listener {
     @EventHandler
     public void onPlayerBreakSand(BlockBreakEvent event) {
         Player player = event.getPlayer();
-        if (event.getBlock().getType() == Material.SAND) {
-            event.getBlock().setType(Material.AIR);
-            player.setLevel(Math.min(500, player.getLevel() + 50));
-        }
+//        if (event.getBlock().getType() == Material.SAND) {
+//            event.getBlock().setType(Material.AIR);
+//            player.setLevel(Math.min(500, player.getLevel() + 50));
+//        }
     }
 }

@@ -42,7 +42,7 @@ public class Missile implements Listener {
             public void run() {
                 arrow.getWorld().spawnParticle(Particle.FIREWORKS_SPARK, arrow.getLocation(), 1, 0, 0, 0, 0);
                 if (ticks >= 20) {
-                    List<Entity> list = arrow.getNearbyEntities(50, 50, 50);
+                    List<Entity> list = arrow.getNearbyEntities(100, 100, 100);
                     double nearestDistance = 500000;
                     LivingEntity nearestTarget = null;
                     for (Entity target : list) {
@@ -69,8 +69,10 @@ public class Missile implements Listener {
                         arrow.getWorld().spawnParticle(Particle.FLAME, arrowLoc, 10, 0, 0, 0, 0.1);
                         arrow.getWorld().spawnParticle(Particle.CAMPFIRE_COSY_SMOKE, arrowLoc, 5, 0.5, 0.5, 0.5, 0);
 
-                        Vector vector = nearestTarget.getEyeLocation().subtract(arrow.getLocation()).toVector();
-                        arrow.setVelocity(vector.normalize().multiply(1.5)); // missile speed
+                        Vector force = nearestTarget.getEyeLocation().subtract(arrow.getLocation()).toVector();
+
+                        arrow.setVelocity(arrow.getVelocity().add(force).normalize().multiply(1.4)); // missile speed
+
                         arrow.getWorld().playSound(arrow.getLocation(), Sound.BLOCK_NOTE_BLOCK_COW_BELL, 2, 1);
                     }
                     if (!arrow.getNearbyEntities(1, 1, 1).isEmpty() || !arrow.isValid() || arrow.isInBlock()) {
