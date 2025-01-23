@@ -60,7 +60,11 @@ public class BlockingRope implements Listener {
         if(LQW.isNotUsing(event, "WHEAT"))return;
         Player player = event.getPlayer();
         World  world = player.getWorld();
-        Vector d = new Vector(0, -1, 0), loc = player.getEyeLocation().toVector().add(new Vector(0, 50, 0)), loc1;
+        Vector d = new Vector(0, -1, 0), loc = player.getEyeLocation().toVector(), loc1;
+        for(int i = 0; i < 50; i ++){
+            if((world.getBlockAt(new Location(world, loc.getX(), loc.getY(), loc.getZ())).getType().isSolid()))break;
+            loc.add(d.clone().multiply(-1));
+        }
         loc1 = loc.clone();
         for(int i = 0; i < 200; i ++){
             loc1.add(d);
